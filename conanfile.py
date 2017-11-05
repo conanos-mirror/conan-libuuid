@@ -31,6 +31,9 @@ class LibuuidConan(ConanFile):
     def build(self):
         with tools.chdir(self.root):
             env_build = AutoToolsBuildEnvironment(self)
+            if self.settings.arch == "x86" or self.settings.arch == "x86_64":
+                env_build.flags.append('-mstackrealign')
+            env_build.fpic = True
             env_build.configure(args=["--prefix=%s" % self.intall_dir])
             env_build.make()
             env_build.make(args=["install"])
