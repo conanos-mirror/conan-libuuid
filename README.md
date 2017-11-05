@@ -1,25 +1,27 @@
-[ ![Download](https://api.bintray.com/packages/bincrafters/public-conan/somelib%3Abincrafters/images/download.svg?version=0.0.0%3Astable) ](https://bintray.com/bincrafters/public-conan/somelib%3Abincrafters/0.0.0%3Astable/link)
-[![Build Status](https://travis-ci.org/bincrafters/conan-somelib.svg?branch=stable%2F0.0.0)](https://travis-ci.org/bincrafters/conan-somelib)
-[![Build status](https://ci.appveyor.com/api/projects/status/a5snyovachh6e8nh?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-somelib)
+[ ![Download](https://api.bintray.com/packages/bincrafters/public-conan/libuuid%3Abincrafters/images/download.svg?version=1.0.3%3Astable) ](https://bintray.com/bincrafters/public-conan/libuuid%3Abincrafters/1.0.3%3Astable/link)
+[![Build Status](https://travis-ci.org/bincrafters/conan-libuuid.svg?branch=stable%2F1.0.3)](https://travis-ci.org/bincrafters/conan-libuuid)
+[![Build status](https://ci.appveyor.com/api/projects/status/a5snyovachh6e8nh?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-libuuid)
 
-Brief statement describing somelib
+Brief statement describing libuuid
 
-[Conan.io](https://conan.io) package for [somelib](https://github.com/someauthor/somelib) project
+#### Portable uuid C library 
 
-The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/bincrafters/public-conan/somelib%3Abincrafters).
+[Conan.io](https://conan.io) package for [libuuid](https://sourceforge.net/projects/libuuid/) project
+
+The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/bincrafters/public-conan/libuuid%3Abincrafters).
 
 ## For Users: Use this package
 
 ### Basic setup
 
-    $ conan install somelib/0.0.0@bincrafters/stable
+    $ conan install libuuid/1.0.3@bincrafters/stable
 
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-    somelib/0.0.0@bincrafters/stable
+    libuuid/1.0.3@bincrafters/stable
 
     [generators]
     txt
@@ -46,7 +48,7 @@ The following command both runs all the steps of the conan file, and publishes t
 
 ## Upload
 
-    $ conan upload somelib/0.0.0@bincrafters/stable --all -r bincrafters
+    $ conan upload libuuid/1.0.3@bincrafters/stable --all -r bincrafters
 
 ## License
 [LICENSE_TYPE](LICENSE)

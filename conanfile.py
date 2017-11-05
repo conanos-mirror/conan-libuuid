@@ -1,44 +1,47 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from conans import ConanFile, CMake, tools
+from conans import ConanFile, AutoToolsBuildEnvironment, tools
 import os
+import tempfile
 
 
-class LibnameConan(ConanFile):
-    name = "libname"
-    version = "0.0.0"
+class LibuuidConan(ConanFile):
+    name = "libuuid"
+    version = "1.0.3"
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False]}
     default_options = "shared=False"
-    url = "https://github.com/bincrafters/conan-libname"
-    description = "Keep it short"
-    license = "https://github.com/someauthor/somelib/blob/master/LICENSES"
+    url = "https://sourceforge.net/projects/libuuid/"
+    description = "Portable uuid C library"
+    license = "https://sourceforge.net/p/libuuid/code/ci/master/tree/COPYING"
+    exports = "LICENSE"
     root = name + "-" + version
-    #use static org/channel for libs in conan-center
-    #use dynamic org/channel for libs in bincrafters
-    requires = "OpenSSL/1.0.2l@conan/stable", \
-        "zlib/1.2.11@conan/stable", \
-        "websocketpp/0.7.0@%s/%s" % (self.user, self.channel)
+    intall_dir = tempfile.mkdtemp(prefix=root)
 
     def source(self):
-        source_url = "https://github.com/Microsoft/cpprestsdk"
-        tools.get("{0}/archive/v{1}.tar.gz".format(source_url, self.version))
+        source_url = "https://downloads.sourceforge.net/project/"
+        tools.get("{0}/{1}/{2}-{3}.tar.gz".format(source_url, self.name, self.name, self.version))
+
+    def configure(self):
+        if self.settings.os != "Linux" and self.settings.os != "FreeBSD":
+            raise Exception("Only Linux/FreeBSD supported for libuuid")
+        del self.settings.compiler.libcxx
 
     def build(self):
-        cmake = CMake(self)
-        cmake.definitions["BUILD_TESTS"] = False
-        cmake.configure()
-        cmake.build()
+        with tools.chdir(self.root):
+            env_build = AutoToolsBuildEnvironment(self)
+            env_build.configure(args=["--prefix=%s" % self.intall_dir])
+            env_build.make()
+            env_build.make(args=["install"])
 
     def package(self):
         self.copy(pattern="LICENSE")
-        self.copy(pattern="*", dst="include", src="include")
-        self.copy(pattern="*.dll", dst="bin", src="bin", keep_path=False)
-        self.copy(pattern="*.lib", dst="lib", src="lib", keep_path=False)
-        self.copy(pattern="*.a", dst="lib", src="lib", keep_path=False)
-        self.copy(pattern="*.so*", dst="lib", src="lib", keep_path=False)
-        self.copy(pattern="*.dylib", dst="lib", src="lib", keep_path=False)
+        self.copy(pattern="*.h", dst="include", src=os.path.join(self.intall_dir, "include"))
+        if self.options.shared:
+            self.copy(pattern="*.so*", dst="lib", src=os.path.join(self.intall_dir, "lib"), keep_path=False)
+        else:
+            self.copy(pattern="*.a", dst="lib", src=os.path.join(self.intall_dir, "lib"), keep_path=False)
 
     def package_info(self):
-        tools.collect_libs(self)
+        self.cpp_info.libs = tools.collect_libs(self)
