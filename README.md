@@ -1,10 +1,11 @@
 [ ![Download](https://api.bintray.com/packages/bincrafters/public-conan/libuuid%3Abincrafters/images/download.svg?version=1.0.3%3Astable) ](https://bintray.com/bincrafters/public-conan/libuuid%3Abincrafters/1.0.3%3Astable/link)
 [![Build Status](https://travis-ci.org/bincrafters/conan-libuuid.svg?branch=stable%2F1.0.3)](https://travis-ci.org/bincrafters/conan-libuuid)
-[![Build status](https://ci.appveyor.com/api/projects/status/a5snyovachh6e8nh?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-libuuid)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
 
 Brief statement describing libuuid
 
-#### Portable uuid C library 
+#### Portable uuid C library
 
 [Conan.io](https://conan.io) package for [libuuid](https://sourceforge.net/projects/libuuid/) project
 
@@ -51,4 +52,4 @@ The following command both runs all the steps of the conan file, and publishes t
     $ conan upload libuuid/1.0.3@bincrafters/stable --all -r bincrafters
 
 ## License
-[LICENSE_TYPE](LICENSE)
+[BSD-3](LICENSE)
