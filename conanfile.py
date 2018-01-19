@@ -8,13 +8,13 @@ import os
 class LibuuidConan(ConanFile):
     name = "libuuid"
     version = "1.0.3"
+    description = "Portable uuid C library"
+    url = "https://github.com/bincrafters/conan-libuuid"
+    license = "BSD 3-Clause"
+    exports = ["LICENSE.md"]
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False]}
     default_options = "shared=False"
-    url = "https://sourceforge.net/projects/libuuid/"
-    description = "Portable uuid C library"
-    license = "BSD-3 (https://sourceforge.net/p/libuuid/code/ci/master/tree/COPYING)"
-    exports = ["LICENSE.md"]
 
     source_subfolder = "source_subfolder"
     install_subfolder = "install_subfolder"
