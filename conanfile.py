@@ -25,20 +25,20 @@ class LibuuidConan(ConanFile):
         os.rename(self.name + "-" + self.version, self.source_subfolder)
 
     def configure(self):
+        if self.settings.os == "Windows":
+            raise Exception("Windows is not supported")
         del self.settings.compiler.libcxx
 
     def build(self):
         with tools.chdir(self.source_subfolder):
             prefix = os.path.abspath(self.package_folder)
-            if self.settings.os == 'Windows':
-                prefix = tools.unix_path(prefix)
             configure_args = ['--prefix=%s' % prefix]
             if self.options.shared:
                 configure_args.extend(["--enable-shared", "--disable-static"])
             else:
                 configure_args.extend(["--disable-shared", "--enable-static"])
 
-            env_build = AutoToolsBuildEnvironment(self, win_bash=self.settings.os == 'Windows')
+            env_build = AutoToolsBuildEnvironment(self)
             if self.settings.arch == "x86" or self.settings.arch == "x86_64":
                 env_build.flags.append('-mstackrealign')
             env_build.fpic = True
