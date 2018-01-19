@@ -38,7 +38,7 @@ class LibuuidConan(ConanFile):
             else:
                 configure_args.extend(["--disable-shared", "--enable-static"])
 
-            env_build = AutoToolsBuildEnvironment(self)
+            env_build = AutoToolsBuildEnvironment(self, win_bash=self.settings.os == 'Windows')
             if self.settings.arch == "x86" or self.settings.arch == "x86_64":
                 env_build.flags.append('-mstackrealign')
             env_build.fpic = True
