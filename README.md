@@ -1,55 +1,47 @@
-[ ![Download](https://api.bintray.com/packages/bincrafters/public-conan/libuuid%3Abincrafters/images/download.svg?version=1.0.3%3Astable) ](https://bintray.com/bincrafters/public-conan/libuuid%3Abincrafters/1.0.3%3Astable/link)
-[![Build Status](https://travis-ci.org/bincrafters/conan-libuuid.svg?branch=stable%2F1.0.3)](https://travis-ci.org/bincrafters/conan-libuuid)
-[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+## Package Status
 
+| Bintray | Appveyor | Travis |
+|---------|-----------|--------|
+|[![Download](https://api.bintray.com/packages/bincrafters/public-conan/libuuid%3Abincrafters/images/download.svg) ](https://bintray.com/bincrafters/public-conan/libuuid%3Abincrafters/_latestVersion)| | [![Build Status](https://travis-ci.org/bincrafters/conan-libuuid.svg?branch=stable%2F1.0.3)](https://travis-ci.org/bincrafters/conan-libuuid)|
 
-Brief statement describing libuuid
+## Conan.io Information
 
-#### Portable uuid C library
+Bincrafters packages can be found in the following public Conan repository:
 
-[Conan.io](https://conan.io) package for [libuuid](https://sourceforge.net/projects/libuuid/) project
+[Bincrafters Public Conan Repository on Bintray](https://bintray.com/bincrafters/public-conan)
 
-The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/bincrafters/public-conan/libuuid%3Abincrafters).
+*Note: You can click the "Set Me Up" button on the Bintray page above for instructions on using packages from this repository.*
 
-## For Users: Use this package
+## Issues
 
-### Basic setup
+If you wish to report an issue or make a request for a Bincrafters package, please do so here:
 
-    $ conan install libuuid/1.0.3@bincrafters/stable
+[Bincrafters Community Issues](https://github.com/bincrafters/community/issues)
 
-### Project setup
+## General Information
 
-If you handle multiple dependencies in your project is better to add a *conanfile.txt*
+This GIT repository is managed by the Bincrafters team and holds files related to Conan.io.  For detailed information about Bincrafters and Conan.io, please visit the following resources:
 
-    [requires]
-    libuuid/1.0.3@bincrafters/stable
+[Bincrafters Wiki - Common README](https://github.com/bincrafters/community/wiki/Common-README.md)
 
-    [generators]
-    txt
+[Bincrafters Technical Documentation](http://bincrafters.readthedocs.io/en/latest/)
 
-Complete the installation of requirements for your project running:
+[Bincrafters Blog](https://bincrafters.github.io)
 
-    $ mkdir build && cd build && conan install ..
+## License Information
 
-Note: It is recommended that you run conan install from a build directory and not the root of the project directory.  This is because conan generates *conanbuildinfo* files specific to a single build configuration which by default comes from an autodetected default profile located in ~/.conan/profiles/default .  If you pass different build configuration options to conan install, it will generate different *conanbuildinfo* files.  Thus, they should not be added to the root of the project, nor committed to git.
+Bincrafters packages are hosted on [Bintray](https://bintray.com) and contain Open-Source software which is licensed by the software's maintainers and NOT Bincrafters.  For each Open-Source package published by Bincrafters, the packaging process obtains the required license files along with the original source files from the maintainer, and includes these license files in the generated Conan packages.
 
-## For Packagers: Publish this Package
+The contents of this GIT repository are completely separate from the software being packaged and therefor licensed separately.  The license for all files contained in this GIT repository are defined in the [LICENSE.md](LICENSE.md) file in this repository.  The licenses included with all Conan packages published by Bincrafters can be found in the Conan package directories in the following locations, relative to the Conan Cache root (`~/.conan` by default):
 
-The example below shows the commands used to publish to bincrafters conan repository. To publish to your own conan respository (for example, after forking this git repository), you will need to change the commands below accordingly.
+### License(s) for packaged software:
 
-## Build and package
+    ~/.conan/data/<pkg_name>/<pkg_version>/bincrafters/package/<random_package_id>/license/<LICENSE_FILES_HERE>
 
-The following command both runs all the steps of the conan file, and publishes the package to the local system cache.  This includes downloading dependencies from "build_requires" and "requires" , and then running the build() method.
+*Note :   The most common filenames for OSS licenses are `LICENSE` AND `COPYING` without file extensions.*
+	
+### License for Bincrafters recipe:
 
-    $ conan create bincrafters/stable
+    ~/.conan/data/<pkg_name>/<pkg_version>/bincrafters/export/LICENSE.md
 
-## Add Remote
-
-    $ conan remote add bincrafters "https://api.bintray.com/conan/bincrafters/public-conan"
-
-## Upload
-
-    $ conan upload libuuid/1.0.3@bincrafters/stable --all -r bincrafters
-
-## License
-[BSD-3](LICENSE)
+	
