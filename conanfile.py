@@ -11,7 +11,7 @@ class LibuuidConan(ConanFile):
     version = "1.0.3"
     description = "Portable uuid C library"
     url = "https://github.com/bincrafters/conan-libuuid"
-    homepage = "https://downloads.sourceforge.net/project/libuuid"
+    homepage = "https://sourceforge.net/projects/libuuid/"
     author = "Bincrafters <bincrafters@gmail.com>"
     license = "BSD-3-Clause"
     topics = ("conan", "libuuid", "uuid", "unique-id", "unique-identifier")
@@ -23,7 +23,8 @@ class LibuuidConan(ConanFile):
     _autotools = None
 
     def source(self):
-        tools.get("{}/{}-{}.tar.gz".format(self.homepage, self.name, self.version))
+        source_url = "https://downloads.sourceforge.net/project/libuuid"
+        tools.get("{}/{}-{}.tar.gz".format(source_url, self.name, self.version))
         os.rename(self.name + "-" + self.version, self._source_subfolder)
 
     def configure(self):
