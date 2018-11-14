@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from conans import ConanFile, AutoToolsBuildEnvironment, tools
 import os
+from conans import ConanFile, AutoToolsBuildEnvironment, tools
+from conans.errors import ConanInvalidConfiguration
 
 
 class LibuuidConan(ConanFile):
@@ -10,45 +11,49 @@ class LibuuidConan(ConanFile):
     version = "1.0.3"
     description = "Portable uuid C library"
     url = "https://github.com/bincrafters/conan-libuuid"
-    license = "BSD 3-Clause"
+    homepage = "https://downloads.sourceforge.net/project/libuuid"
+    author = "Bincrafters <bincrafters@gmail.com>"
+    license = "BSD-3-Clause"
+    topics = ("conan", "libuuid", "uuid", "unique-id", "unique-identifier")
     exports = ["LICENSE.md"]
     settings = "os", "arch", "compiler", "build_type"
-    options = {"shared": [True, False]}
-    default_options = "shared=False"
-
-    source_subfolder = "source_subfolder"
-    install_subfolder = "install_subfolder"
+    options = {"shared": [True, False], "fPIC": [True, False]}
+    default_options = {"shared": False, "fPIC": True}
+    _source_subfolder = "source_subfolder"
+    _autotools = None
 
     def source(self):
-        source_url = "https://downloads.sourceforge.net/project/"
-        tools.get("{0}/{1}/{2}-{3}.tar.gz".format(source_url, self.name, self.name, self.version))
-        os.rename(self.name + "-" + self.version, self.source_subfolder)
+        tools.get("{}/{}-{}.tar.gz".format(self.homepage, self.name, self.version))
+        os.rename(self.name + "-" + self.version, self._source_subfolder)
 
     def configure(self):
         if self.settings.os == "Windows":
-            raise Exception("Windows is not supported")
+            raise ConanInvalidConfiguration("libuuid is not supported on Windows")
         del self.settings.compiler.libcxx
 
-    def build(self):
-        with tools.chdir(self.source_subfolder):
-            prefix = os.path.abspath(self.package_folder)
-            configure_args = ['--prefix=%s' % prefix]
-            if self.options.shared:
-                configure_args.extend(["--enable-shared", "--disable-static"])
-            else:
-                configure_args.extend(["--disable-shared", "--enable-static"])
+    def _configure_autotools(self):
+        if not self._autotools:
+            configure_args = [
+                "--enable-shared=%s" % ("yes" if self.options.shared else "no"),
+                "--enable-static=%s" % ("no" if self.options.shared else "yes")
+                ]
+            self._autotools = AutoToolsBuildEnvironment(self)
+            if "x86" in self.settings.arch:
+                self._autotools.flags.append('-mstackrealign')
+            self._autotools.configure(args=configure_args)
+        return self._autotools
 
-            env_build = AutoToolsBuildEnvironment(self)
-            if self.settings.arch == "x86" or self.settings.arch == "x86_64":
-                env_build.flags.append('-mstackrealign')
-            env_build.fpic = True
-            env_build.configure(args=configure_args)
-            env_build.make()
-            env_build.make(args=["install"])
+    def build(self):
+        with tools.chdir(self._source_subfolder):
+            autotools = self._configure_autotools()
+            autotools.make()
 
     def package(self):
-        self.copy("COPYING", dst="licenses", src=self.source_subfolder, keep_path=False)
-        # other files are installed by make install call
+        self.copy("COPYING", dst="licenses", src=self._source_subfolder)
+        with tools.chdir(self._source_subfolder):
+            autotools = self._configure_autotools()
+            autotools.install()
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
+        self.cpp_info.includedirs.append("uuid")

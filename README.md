@@ -2,7 +2,7 @@
 
 | Bintray | Appveyor | Travis |
 |---------|-----------|--------|
-|[![Download](https://api.bintray.com/packages/bincrafters/public-conan/libuuid%3Abincrafters/images/download.svg) ](https://bintray.com/bincrafters/public-conan/libuuid%3Abincrafters/_latestVersion)| | [![Build Status](https://travis-ci.org/bincrafters/conan-libuuid.svg?branch=stable%2F1.0.3)](https://travis-ci.org/bincrafters/conan-libuuid)|
+|[![Download](https://api.bintray.com/packages/bincrafters/public-conan/libuuid%3Abincrafters/images/download.svg) ](https://bintray.com/bincrafters/public-conan/libuuid%3Abincrafters/_latestVersion)| | [![Build Status](https://travis-ci.org/bincrafters/conan-libuuid.svg?branch=stable)](https://travis-ci.org/bincrafters/conan-libuuid)|
 
 ## Conan.io Information
 
